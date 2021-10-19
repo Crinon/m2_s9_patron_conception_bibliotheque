@@ -1,0 +1,14 @@
+org\miage\bibliotheque\metier\Usager.class
+org\miage\bibliotheque\ihm\Backoffice.class
+org\miage\bibliotheque\metier\Emprunt.class
+org\miage\bibliotheque\metier\Exemplaire.class
+org\miage\bibliotheque\metier\UsagerResource.class
+org\miage\bibliotheque\metier\Livre.class
+org\miage\bibliotheque\metier\Magazine.class
+org\miage\bibliotheque\gestion\Backoffice.class
+org\miage\bibliotheque\metier\Reservation.class
+org\miage\bibliotheque\BibliothequeApp.class
+org\miage\bibliotheque\ihm\Frontoffice.class
+org\miage\bibliotheque\metier\Exemplaire$Etat.class
+org\miage\bibliotheque\gestion\Frontoffice.class
+org\miage\bibliotheque\metier\Oeuvre.class

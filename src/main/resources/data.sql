@@ -1,0 +1,1 @@
+INSERT INTO usager (id, nom, prenom) VALUES ('6453', 'Dupont', 'Bruno'), ('984833', 'Durand', 'Catherine')

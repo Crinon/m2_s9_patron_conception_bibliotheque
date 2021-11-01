@@ -1,41 +1,36 @@
 package org.miage.bibliotheque.metier;
 
-public class Exemplaire {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Exemplaire implements Serializable {
 
     enum Etat {
         DISPONIBLE,
         INDISPONIBLE
     }
 
+    @Id
+    private String id;
     private Etat etat;
-    private int identifiant;
+    @ManyToOne
+    @JoinColumn(name = "oeuvre_isbn", nullable = false)
     private Oeuvre oeuvre;
-    private Emprunt emprunt;
-
-    public Exemplaire(int identifiant) {
-        this.etat = Etat.DISPONIBLE;
-        this.identifiant = identifiant;
-    }
+    @OneToMany(mappedBy = "exemplaire")
+    private List<Emprunt> emprunt;
 
     public Exemplaire e_identification(Oeuvre oeuvre){
         // TODO
         return this;
-    }
-
-    public Etat getEtat() {
-        return etat;
-    }
-
-    public void setEtat(Etat etat) {
-        this.etat = etat;
-    }
-
-    public int getIdentifiant() {
-        return identifiant;
-    }
-
-    public void setIdentifiant(int identifiant) {
-        this.identifiant = identifiant;
     }
 
 }

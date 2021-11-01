@@ -1,49 +1,32 @@
 package org.miage.bibliotheque.metier;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Emprunt {
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Emprunt implements Serializable {
+
+    @Id
+    private String id;
     private Date dateEmprunt;
+    @ManyToOne
+    @JoinColumn(name = "oeuvre_isbn", nullable = false)
     private Oeuvre oeuvre;
+    @ManyToOne
+    @JoinColumn(name = "exemplaire_id", nullable = false)
     private Exemplaire exemplaire;
+    @ManyToOne
+    @JoinColumn(name = "usager_id", nullable = false)
     private Usager usager;
-
-    public Emprunt(Date dateEmprunt, Oeuvre oeuvre, Exemplaire exemplaire, Usager usager) {
-        this.dateEmprunt = dateEmprunt;
-        this.oeuvre = oeuvre;
-        this.exemplaire = exemplaire;
-        this.usager = usager;
-    }
-
-    public Date getDateEmprunt() {
-        return dateEmprunt;
-    }
-
-    public void setDateEmprunt(Date dateEmprunt) {
-        this.dateEmprunt = dateEmprunt;
-    }
-
-    public Oeuvre getOeuvre() {
-        return oeuvre;
-    }
-
-    public void setOeuvre(Oeuvre oeuvre) {
-        this.oeuvre = oeuvre;
-    }
-
-    public Exemplaire getExemplaire() {
-        return exemplaire;
-    }
-
-    public void setExemplaire(Exemplaire exemplaire) {
-        this.exemplaire = exemplaire;
-    }
-
-    public Usager getUsager() {
-        return usager;
-    }
-
-    public void setUsager(Usager usager) {
-        this.usager = usager;
-    }
 }

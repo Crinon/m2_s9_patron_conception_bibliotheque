@@ -33,7 +33,9 @@
         </thead>
         <tbody>
         <tr th:each="livre: ${livres}">
-            <td th:text="${livre.titre}"></td>
+            <td>
+                <a th:href="@{/exemplaires/{oeuvreid}(oeuvreid=${livre.isbn})}"><p th:text="${livre.titre}"></p></a>
+            </td>
             <td th:text="${livre.auteur}"></td>
             <td th:text="${livre.datePublication}"></td>
             <td>
@@ -77,7 +79,7 @@
         </thead>
         <tbody>
         <tr th:each="magazine: ${magazines}">
-            <td th:text="${magazine.titre}"></td>
+            <td><a th:href="@{/exemplaires/{oeuvreid}(oeuvreid=${magazine.isbn})}"><p th:text="${magazine.titre}"></p></a></td>
             <td th:text="${magazine.numero}"></td>
             <td th:text="${magazine.datePublication}"></td>
             <td>

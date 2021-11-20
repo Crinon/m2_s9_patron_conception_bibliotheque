@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Exemplaire implements Serializable {
-
     private enum Etat {
         DISPONIBLE,
         INDISPONIBLE
@@ -21,6 +20,7 @@ public class Exemplaire implements Serializable {
 
     @Id
     private String id;
+    @Enumerated(EnumType.STRING)
     private Etat etat;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "oeuvre_isbn", nullable = false)

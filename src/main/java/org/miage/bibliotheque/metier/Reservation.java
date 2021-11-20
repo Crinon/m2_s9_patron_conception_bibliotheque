@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -16,8 +17,8 @@ public class Reservation implements Serializable {
 
     @Id
     private String id;
-    private Date dateReservation;
-    private Date dateAnnulation;
+    private LocalDate dateReservation;
+    private LocalDate dateAnnulation;
     @ManyToOne
     @JoinColumn(name = "usager_id", nullable = false)
     private Usager usager;

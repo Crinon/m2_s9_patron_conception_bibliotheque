@@ -34,7 +34,7 @@ public class UsagersController {
     // POST
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
-    public String addUsager(Usager usager, Model model) {
+    public String addUsager(Usager usager) {
         Usager usager2Save = new Usager(
                 UUID.randomUUID().toString(),
                 usager.getNom(),
@@ -42,16 +42,14 @@ public class UsagersController {
                 new ArrayList<>()
         );
         ur.save(usager2Save);
-        return getAllUsagers(model);
+        return "redirect:/usagers";
     }
 
     // DELETE
     @DeleteMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
-    public RedirectView deleteUsager(@RequestParam String usagerId) {
+    public String deleteUsager(@RequestParam String usagerId) {
         ur.deleteById(usagerId);
-        RedirectView rw = new RedirectView();
-        rw.setUrl("usagers");
-        return rw;
+        return "redirect:/usagers";
     }
 }

@@ -16,8 +16,8 @@
 
     <h1>Oeuvres</h1>
 
-    <form method="POST" id="livreForm"></form>
-    <form method="POST" id="magazineForm"></form>
+    <form th:action="@{/oeuvres/add/livre}" method="POST" id="livreForm"></form>
+    <form th:action="@{/oeuvres/add/magazine}" method="POST" id="magazineForm"></form>
     <form th:each="livre: ${livres}" th:method="delete" th:id="'deleteForm' + ${livre.isbn}"></form>
     <form th:each="magazine: ${magazines}" th:method="delete" th:id="'deleteForm' + ${magazine.isbn}"></form>
 
@@ -45,7 +45,21 @@
                 <button type="submit" th:form="'deleteForm' + ${livre.isbn}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer">
                     <i class="bi bi-trash"></i>
                 </button>
-                <input type="hidden" name="usagerId" th:value="${livre.isbn}" th:form="'deleteForm' + ${livre.isbn}">
+                <input type="hidden" name="isbn" th:value="${livre.isbn}" th:form="'deleteForm' + ${livre.isbn}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="form-control" type="text" name="titre" form="livreForm"/>
+            </td>
+            <td>
+                <input class="form-control" type="text" name="auteur" form="livreForm"/>
+            </td>
+            <td>
+                <input class="form-control" type="text" name="datePublication" form="livreForm"/>
+            </td>
+            <td colspan="2" class="text-center">
+                <button type="submit" class="btn btn-primary mx-auto" form="livreForm">Ajouter</button>
             </td>
         </tr>
         </tbody>
@@ -75,7 +89,21 @@
                 <button type="submit" th:form="'deleteForm' + ${magazine.isbn}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer">
                     <i class="bi bi-trash"></i>
                 </button>
-                <input type="hidden" name="usagerId" th:value="${magazine.isbn}" th:form="'deleteForm' + ${magazine.isbn}">
+                <input type="hidden" name="isbn" th:value="${magazine.isbn}" th:form="'deleteForm' + ${magazine.isbn}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="form-control" type="text" name="titre" form="magazineForm"/>
+            </td>
+            <td>
+                <input class="form-control" type="text" name="numero" form="magazineForm"/>
+            </td>
+            <td>
+                <input class="form-control" type="text" name="datePublication" form="magazineForm"/>
+            </td>
+            <td colspan="2" class="text-center">
+                <button type="submit" class="btn btn-primary mx-auto" form="magazineForm">Ajouter</button>
             </td>
         </tr>
         </tbody>

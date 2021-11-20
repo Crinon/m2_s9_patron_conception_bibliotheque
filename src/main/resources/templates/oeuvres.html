@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Oeuvres</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+
+    <h1>Oeuvres</h1>
+
+    <form method="POST" id="livreForm"></form>
+    <form method="POST" id="magazineForm"></form>
+    <form th:each="livre: ${livres}" th:method="delete" th:id="'deleteForm' + ${livre.isbn}"></form>
+    <form th:each="magazine: ${magazines}" th:method="delete" th:id="'deleteForm' + ${magazine.isbn}"></form>
+
+    <h2 class="mt-5">Livres</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Date de publication</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livre: ${livres}">
+            <td th:text="${livre.titre}"></td>
+            <td th:text="${livre.auteur}"></td>
+            <td th:text="${livre.datePublication}"></td>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Ėditer">
+                    <i class="bi bi-pencil"></i>
+                </button>
+            </td>
+            <td>
+                <button type="submit" th:form="'deleteForm' + ${livre.isbn}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer">
+                    <i class="bi bi-trash"></i>
+                </button>
+                <input type="hidden" name="usagerId" th:value="${livre.isbn}" th:form="'deleteForm' + ${livre.isbn}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2 class="mt-5">Magazines</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Numéro</th>
+            <th scope="col">Date de publication</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="magazine: ${magazines}">
+            <td th:text="${magazine.titre}"></td>
+            <td th:text="${magazine.numero}"></td>
+            <td th:text="${magazine.datePublication}"></td>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Ėditer">
+                    <i class="bi bi-pencil"></i>
+                </button>
+            </td>
+            <td>
+                <button type="submit" th:form="'deleteForm' + ${magazine.isbn}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer">
+                    <i class="bi bi-trash"></i>
+                </button>
+                <input type="hidden" name="usagerId" th:value="${magazine.isbn}" th:form="'deleteForm' + ${magazine.isbn}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+
+<script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+</html>

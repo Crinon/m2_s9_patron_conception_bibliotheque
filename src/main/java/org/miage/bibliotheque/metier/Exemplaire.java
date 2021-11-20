@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Exemplaire implements Serializable {
 
-    enum Etat {
+    private enum Etat {
         DISPONIBLE,
         INDISPONIBLE
     }

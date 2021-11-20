@@ -1,7 +1,7 @@
 package org.miage.bibliotheque.gestion;
 
 import org.miage.bibliotheque.metier.Usager;
-import org.miage.bibliotheque.metier.UsagerResource;
+import org.miage.bibliotheque.repositories.UsagerResource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,13 +14,13 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping(value = "/usagers")
-public class Frontoffice {
+@RequestMapping(value = "usagers")
+public class UsagersController {
 
-    private static Logger LOG = Logger.getLogger(Frontoffice.class.getName());
+    private static Logger LOG = Logger.getLogger(UsagersController.class.getName());
     private final UsagerResource ur;
 
-    public Frontoffice(UsagerResource ur) {
+    public UsagersController(UsagerResource ur) {
         this.ur = ur;
     }
 

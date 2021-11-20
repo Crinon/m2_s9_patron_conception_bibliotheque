@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -17,12 +17,11 @@ import java.util.List;
 public class Oeuvre implements Serializable {
 
     @Id
-    private String ISBN;
+    private String isbn;
     private String titre;
-    private String auteur;
-    private Date datePuplication;
+    private LocalDate datePublication;
     private int nbEmpruntEnCours;
-    @OneToMany(mappedBy = "oeuvre")
+    @OneToMany(mappedBy = "oeuvre", cascade = CascadeType.REMOVE)
     private List<Exemplaire> exemplaires;
     @OneToMany(mappedBy = "oeuvre")
     private List<Reservation> reservations;

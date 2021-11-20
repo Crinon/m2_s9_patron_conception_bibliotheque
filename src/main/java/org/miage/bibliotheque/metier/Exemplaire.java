@@ -22,7 +22,7 @@ public class Exemplaire implements Serializable {
     @Id
     private String id;
     private Etat etat;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "oeuvre_isbn", nullable = false)
     private Oeuvre oeuvre;
     @OneToMany(mappedBy = "exemplaire")

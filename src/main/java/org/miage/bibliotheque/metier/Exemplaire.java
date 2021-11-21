@@ -29,9 +29,4 @@ public class Exemplaire implements Serializable {
     @OneToMany(mappedBy = "exemplaire")
     private List<Emprunt> emprunt;
 
-    public Exemplaire e_identification(Oeuvre oeuvre){
-        // TODO
-        return this;
-    }
-
 }

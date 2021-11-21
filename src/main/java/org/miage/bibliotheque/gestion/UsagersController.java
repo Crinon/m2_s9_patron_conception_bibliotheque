@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 @Controller
 @RequestMapping(value = "usagers")
 public class UsagersController {
 
-    private static Logger LOG = Logger.getLogger(UsagersController.class.getName());
     private final UsagerResource ur;
 
     public UsagersController(UsagerResource ur) {

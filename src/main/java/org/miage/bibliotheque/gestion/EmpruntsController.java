@@ -1,6 +1,8 @@
 package org.miage.bibliotheque.gestion;
 
-import org.miage.bibliotheque.metier.*;
+import org.miage.bibliotheque.metier.Emprunt;
+import org.miage.bibliotheque.metier.Exemplaire;
+import org.miage.bibliotheque.metier.Reservation;
 import org.miage.bibliotheque.repositories.*;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -10,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -64,9 +65,9 @@ public class EmpruntsController {
         } else {
             // Sinon, on alerte et on renvoie vers la page de création de réservations
             if (resaUsager.isPresent()) {
-                redirAttrs.addFlashAttribute("reservationMessage", "Aucun exemplaire n'est disponible.");
-            } else {
                 redirAttrs.addFlashAttribute("errorMessage", "Aucun exemplaire n'est disponible. Une réservation est déjà en cours.");
+            } else {
+                redirAttrs.addFlashAttribute("reservationMessage", "Aucun exemplaire n'est disponible.");
             }
         }
         return "redirect:/emprunts";

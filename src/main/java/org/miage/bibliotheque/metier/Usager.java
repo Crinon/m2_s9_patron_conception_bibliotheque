@@ -23,9 +23,4 @@ public class Usager implements Serializable {
     @OneToMany(mappedBy = "usager")
     private List<Emprunt> emprunts;
 
-
-    public Usager e_identification(String nom){
-        //TODO
-        return this;
-    }
 }

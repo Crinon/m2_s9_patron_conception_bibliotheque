@@ -29,8 +29,4 @@ public class Oeuvre implements Serializable {
     @OneToMany(mappedBy = "oeuvre", cascade = CascadeType.REMOVE)
     private List<Reservation> reservations;
 
-    public Oeuvre e_identification(String titre){
-        // TODO
-        return this;
-    }
 }

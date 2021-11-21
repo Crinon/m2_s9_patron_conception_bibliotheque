@@ -2,6 +2,7 @@ package org.miage.bibliotheque.gestion;
 
 import org.miage.bibliotheque.metier.Emprunt;
 import org.miage.bibliotheque.metier.Exemplaire;
+import org.miage.bibliotheque.metier.Oeuvre;
 import org.miage.bibliotheque.metier.Reservation;
 import org.miage.bibliotheque.repositories.*;
 import org.springframework.http.MediaType;
@@ -60,6 +61,7 @@ public class EmpruntsController {
                     exemplaireDispo.get(),
                     emprunt.getUsager()
             );
+            emprunt.getOeuvre().setNbEmpruntEnCours(emprunt.getOeuvre().getNbEmpruntEnCours() + 1);
             exemplaireDispo.get().setEtat(Exemplaire.Etat.INDISPONIBLE);
             empruntResource.save(emprunt2Save);
         } else {
@@ -76,14 +78,16 @@ public class EmpruntsController {
     // DELETE
     @DeleteMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @Transactional
-    public String deleteExemplaire(@RequestParam String empruntId, @RequestParam String etat, RedirectAttributes redirAttrs) {
-        Exemplaire ex2update = empruntResource.getById(empruntId).getExemplaire();
+    public String deleteEmprunt(@RequestParam String empruntId, @RequestParam String etat, RedirectAttributes redirAttrs) {
+        Exemplaire ex2Update = empruntResource.getById(empruntId).getExemplaire();
+        Oeuvre oeuvre2Update = empruntResource.getById(empruntId).getOeuvre();
+        oeuvre2Update.setNbEmpruntEnCours(oeuvre2Update.getNbEmpruntEnCours() -1);
         empruntResource.deleteById(empruntId);
         if (etat.equals("abime")) {
-            exemplaireResource.delete(ex2update);
+            exemplaireResource.delete(ex2Update);
             redirAttrs.addFlashAttribute("errorMessage", "L'exemplaire état en mauvais état et a donc été jeté.");
         } else {
-            ex2update.setEtat(Exemplaire.Etat.DISPONIBLE);
+            ex2Update.setEtat(Exemplaire.Etat.DISPONIBLE);
         }
         return "redirect:/emprunts";
     }

@@ -7,5 +7,4 @@
 /dataSources/
 /dataSources.local.xml
 /compiler.xml
-/encodings.xml
-!/workspace-LAPTOP-J7KHAQVM.xml
+/encodings.xml!/jpa-buddy.xml

@@ -22,30 +22,34 @@
 
         <div th:switch="${#lists.isEmpty(exemplairesFromOeuvre)}">
             <p th:case="true">La bibliothèque ne possède aucun exemplaire de cette oeuvre.</p>
-                <table th:case="false" class="table">
-                    <!--    ENTETE TABLEAU    -->
-                    <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Etat</th>
-                    </tr>
-                    </thead>
+            <table th:case="false" class="table">
+                <!--    ENTETE TABLEAU    -->
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Etat</th>
+                </tr>
+                </thead>
 
-                    <!--    CORPS TABLEAU    -->
-                    <!--    GENERATION D'UNE LIGNE PAR EXEMPLAIRE TROUVEE    -->
-                    <tr th:each="exemplaire: ${exemplairesFromOeuvre}">
-                        <!--    COLONNE TITRE OEUVRE    -->
-                        <td th:text="${exemplaire.id}"></td>
-                        <!--    COLONNE ETAT EXEMPLAIRE    -->
-                        <td th:text="${exemplaire.etat}"></td>
-                        <td>
-                            <button type="submit" th:form="'deleteForm' + ${exemplaire.id}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                            <input type="hidden" name="exemplaireID" th:value="${exemplaire.id}" th:form="'deleteForm' + ${exemplaire.id}">
-                        </td>
-                </table>
+                <!--    CORPS TABLEAU    -->
+                <!--    GENERATION D'UNE LIGNE PAR EXEMPLAIRE TROUVEE    -->
+                <tr th:each="exemplaire: ${exemplairesFromOeuvre}">
+                    <!--    COLONNE TITRE OEUVRE    -->
+                    <td th:text="${exemplaire.id}"></td>
+                    <!--    COLONNE ETAT EXEMPLAIRE    -->
+                    <td th:text="${exemplaire.etat}"></td>
+                    <td>
+                        <button type="submit" th:form="'deleteForm' + ${exemplaire.id}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                        <input type="hidden" name="exemplaireID" th:value="${exemplaire.id}" th:form="'deleteForm' + ${exemplaire.id}">
+                    </td>
+            </table>
         </div> <!-- fin du switch sur la taille de la liste des exemplaires -->
+        <form method="POST" id="exemplaireForm">
+            <button type="submit" class="btn btn-primary">Ajouter un exemplaire</button>
+            <input type="hidden" name="oeuvre" th:value="${oeuvreId}">
+        </form>
     </div>
 </body>
 </html>

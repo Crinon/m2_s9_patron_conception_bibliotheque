@@ -15,7 +15,7 @@
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
 
-    <h1>Reservations</h1>
+    <h1>Réservations</h1>
 
     <!-- FORUMAIRE DE CREATION -->
     <form method="POST" id="reservationCreateForm"></form>
@@ -26,56 +26,57 @@
         <!--    ENTETE TABLEAU    -->
         <thead>
         <tr>
-            <th scope="col">ID USAGER réservation</th>
-            <th scope="col">ID OEUVRE</th>
-            <th scope="col">DATE CANCEL</th>
-            <th scope="col">DATE RESA</th>
+            <th scope="col">Usager</th>
+            <th scope="col">Oeuvre</th>
+            <th scope="col">Date de réservation</th>
+            <th scope="col">Date d'annulation</th>
         </tr>
         </thead>
 
         <!--    CORPS TABLEAU    -->
         <tbody>
         <!--    GENERATION D'UNE LIGNE PAR RESERVATION TROUVEE    -->
-        <tr th:each="reservation: ${reservations}">
-            <!--    COLONNE DU NOM DU RESERVANT    -->
-            <td th:text="${reservation.usager.nom}"></td>
-            <!--    COLONNE DU NOM OEUVRE    -->
-            <td th:text="${reservation.oeuvre.titre}"></td>
-            <!--    COLONNE DE LA DATE D'ANNULATION    -->
-            <td th:text="${reservation.dateAnnulation}"></td>
-            <!--    COLONNE DE LA DATE DE RESERVATION    -->
-            <td th:text="${reservation.dateReservation}"></td>
-            <!--    COLONNE DU BOUTON ANNULER    -->
+        <tr>
+            <!--    COLONNE POUR SELECTIONNER UN USAGER PARMI LES EXISTANTS    -->
             <td>
-                <button type="submit" th:form="'cancelForm' + ${reservation.id}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Annuler">
-                    <i class="bi bi-trash"></i>
-                </button>
-                <input type="hidden" name="reservationID" th:value="${reservation.id}" th:form="'cancelForm' + ${reservation.id}">
+                <select class="form-select" name="usager" form="reservationCreateForm">
+                    <option th:each="usager : ${usagers}"
+                            th:value="${usager.id}"
+                            th:utext="${usager.prenom} + ' ' + ${usager.nom}"></option>
+                </select>
+            </td>
+            <!--    COLONNE POUR SELECTIONNER UNE OEUVRE PARMI LES EXISTANTES    -->
+            <td>
+                <select class="form-select" name="oeuvre" form="reservationCreateForm">
+                    <option th:each="oeuvre : ${oeuvres}"
+                            th:value="${oeuvre.isbn}"
+                            th:utext="${oeuvre.titre}"></option>
+                </select>
+            </td>
+            <td></td>
+            <td></td>
+            <td colspan="2" class="text-center">
+                <button type="submit" class="btn btn-primary mx-auto" form="reservationCreateForm">Créer</button>
             </td>
         </tr>
 
 
         <!--    LIGNE FINALE : LIGNE POUR CREER UNE RESERVATION    -->
-        <tr>
-            <!--    COLONNE POUR SELECTIONNER UN USAGER PARMI LES EXISTANTS    -->
-            <td>
-                <select name="usager" form="reservationCreateForm">
-                    <option th:each="usager : ${usagers}"
-                            th:value="${usager.id}"
-                            th:utext="${usager.nom}"/>
-                </select>
-            </td>
-            <!--    COLONNE POUR SELECTIONNER UNE OEUVRE PARMI LES EXISTANTES    -->
-            <td>
-                <select name="oeuvre" form="reservationCreateForm">
-                    <option th:each="oeuvre : ${oeuvres}"
-                            th:value="${oeuvre.isbn}"
-                            th:utext="${oeuvre.titre}"/>
-                </select>
-            </td>
-            <td></td>
-            <td colspan="2" class="text-center">
-                <button type="submit" class="btn btn-primary mx-auto" form="reservationCreateForm">Créer</button>
+        <tr th:each="reservation: ${reservations}">
+            <!--    COLONNE DU NOM DU RESERVANT    -->
+            <td th:text="${reservation.usager.prenom} + ' ' + ${reservation.usager.nom}"></td>
+            <!--    COLONNE DU NOM OEUVRE    -->
+            <td th:text="${reservation.oeuvre.titre}"></td>
+            <!--    COLONNE DE LA DATE DE RESERVATION  -->
+            <td th:text="${reservation.dateReservation}"></td>
+            <!--    COLONNE DE LA DATE D'ANNULATION    -->
+            <td th:text="${reservation.dateAnnulation}"></td>
+            <!--    COLONNE DU BOUTON ANNULER    -->
+            <td class="text-center">
+                <button type="submit" th:form="'cancelForm' + ${reservation.id}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Annuler">
+                    <i class="bi bi-trash"></i>
+                </button>
+                <input type="hidden" name="reservationID" th:value="${reservation.id}" th:form="'cancelForm' + ${reservation.id}">
             </td>
         </tr>
         </tbody>

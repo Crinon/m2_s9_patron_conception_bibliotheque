@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Emprunts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+
+    <div class="alert alert-danger" th:if="${reservationMessage}">
+        <span th:text="${reservationMessage}"></span>
+        <a class="alert-link" href="/reservations">Vous pouvez effectuer une réservation ici.</a>
+    </div>
+
+    <div class="alert alert-danger" th:if="${errorMessage}">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <h1>Emprunts</h1>
+
+    <form method="POST" id="empruntForm"></form>
+    <form th:each="emprunt: ${emprunts}" th:method="delete" th:id="'retourFormBien' + ${emprunt.id}"></form>
+    <form th:each="emprunt: ${emprunts}" th:method="delete" th:id="'retourFormAbime' + ${emprunt.id}"></form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Oeuvre</th>
+            <th scope="col">Usager</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="emprunt: ${emprunts}">
+            <td th:text="${emprunt.oeuvre.titre}"></td>
+            <td th:text="${emprunt.usager.prenom} + ' ' + ${emprunt.usager.nom}"></td>
+            <td th:text="${emprunt.dateEmprunt}"></td>
+            <td class="text-center">
+                <button type="submit" th:form="'retourFormBien' + ${emprunt.id}" class="btn btn-primary">
+                    Retour en bon état
+                </button>
+                <input type="hidden" name="empruntId" th:value="${emprunt.id}" th:form="'retourFormBien' + ${emprunt.id}">
+                <input type="hidden" name="etat" th:value="bien" th:form="'retourFormBien' + ${emprunt.id}">
+            </td>
+            <td class="text-center">
+                <button type="submit" th:form="'retourFormAbime' + ${emprunt.id}" class="btn btn-primary">
+                    Retour abimé
+                </button>
+                <input type="hidden" name="empruntId" th:value="${emprunt.id}" th:form="'retourFormAbime' + ${emprunt.id}">
+                <input type="hidden" name="etat" th:value="abime" th:form="'retourFormAbime' + ${emprunt.id}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <select class="form-select" name="oeuvre" form="empruntForm">
+                    <option th:each="oeuvre : ${oeuvres}"
+                            th:value="${oeuvre.isbn}"
+                            th:utext="${oeuvre.titre}"></option>
+                </select>
+            </td>
+            <td>
+                <select class="form-select" name="usager" form="empruntForm">
+                    <option th:each="usager : ${usagers}"
+                            th:value="${usager.id}"
+                            th:utext="${usager.prenom} + ' ' + ${usager.nom}"></option>
+                </select>
+            </td>
+            <td></td>
+            </td>
+            <td colspan="2" class="text-center">
+                <button type="submit" class="btn btn-primary mx-auto" form="empruntForm">Emprunter</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -30,12 +30,7 @@
                 <tr th:each="usager: ${usagers}">
                     <td th:text="${usager.nom}"></td>
                     <td th:text="${usager.prenom}"></td>
-                    <td>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Ėditer">
-                            <i class="bi bi-pencil"></i>
-                        </button>
-                    </td>
-                    <td>
+                    <td class="text-center">
                         <button type="submit" th:form="'deleteForm' + ${usager.id}" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Supprimer">
                             <i class="bi bi-trash"></i>
                         </button>

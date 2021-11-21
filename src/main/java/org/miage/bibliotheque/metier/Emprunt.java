@@ -3,10 +3,10 @@ package org.miage.bibliotheque.metier;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.util.Lazy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -17,7 +17,7 @@ public class Emprunt implements Serializable {
 
     @Id
     private String id;
-    private Date dateEmprunt;
+    private LocalDate dateEmprunt;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "oeuvre_isbn", nullable = false)
     private Oeuvre oeuvre;
